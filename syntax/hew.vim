@@ -34,7 +34,7 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 " ---- Keywords ----
 syn keyword hewControl     if else match loop for in while break continue return
 syn keyword hewControl     try catch select join yield cooperate after from await
-syn keyword hewControl     scope launch cancel
+syn keyword hewControl     scope launch cancel and or race
 
 syn keyword hewDecl        let var const fn gen type struct enum trait impl
 syn keyword hewDecl        import pub export super where as mut
@@ -45,7 +45,7 @@ syn keyword hewSupervisor  supervisor child restart budget strategy
 
 syn keyword hewWire        wire reserved optional deprecated default list
 
-syn keyword hewOther       dyn unsafe extern package
+syn keyword hewOther       dyn unsafe extern package foreign isolated
 
 syn keyword hewBool        true false
 syn keyword hewNone        None
