@@ -19,11 +19,15 @@ syn region  hewString  start='"' skip='\\"' end='"' contains=hewEscape
 syn region  hewRawStr  start='r"'           end='"'
 syn region  hewFmtStr  start='f"' skip='\\"' end='"' contains=hewEscape,hewFmtInterp
 syn region  hewFmtInterp start='{' end='}' contained contains=TOP
+syn region  hewTemplate start='`' end='`' contains=hewTemplateInterp
+syn region  hewTemplateInterp start='${' end='}' contained contains=TOP
+syn region  hewRawRegex start='re"' end='"'
 syn match   hewChar    "'\(\\[nrt\\'0]\|\\x[0-9a-fA-F]\{2\}\|[^']\)'"
 
 " ---- Numbers ----
 syn match   hewNumber  "\<0[xX][0-9a-fA-F][0-9a-fA-F_]*\>"
 syn match   hewNumber  "\<0[bB][01][01_]*\>"
+syn match   hewNumber  "\<0[oO][0-7][0-7_]*\>"
 syn match   hewNumber  "\<[0-9][0-9_]*\.[0-9][0-9_]*\([eE][+-]\?[0-9][0-9_]*\)\?\>"
 syn match   hewNumber  "\<[0-9][0-9_]*\(ns\|us\|ms\|s\|m\|h\)\>"
 syn match   hewNumber  "\<[0-9][0-9_]*\>"
@@ -70,10 +74,11 @@ syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
 syn match   hewFuncCall    "\<[a-zA-Z_][a-zA-Z0-9_]*\ze\s*("
 
 " ---- Operators ----
-syn match   hewOperator    "->\|=>\|<-\|\.\.\=\|\.\.\|::"
-syn match   hewOperator    "==\|!=\|<=\|>=\|<\|>"
-syn match   hewOperator    "+=\|-=\|\*=\|/=\|%="
-syn match   hewOperator    "[+\-*/%=!?@&|]"
+syn match   hewOperator    "->\|=>\|<-\|\.\.\(=\)\?\|::"
+syn match   hewOperator    "==\|!=\|=\~\|!\~\|<=\|>=\|<\|>"
+syn match   hewOperator    "<<=\|>>=\|&=\||=\|\^=\|+=\|-=\|\*=\|/=\|%="
+syn match   hewOperator    "<<\|>>"
+syn match   hewOperator    "[+\-*/%=!?@&|\^~]"
 
 " ---- Labels ----
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
@@ -87,6 +92,8 @@ hi def link hewTodo          Todo
 hi def link hewString        String
 hi def link hewRawStr        String
 hi def link hewFmtStr        String
+hi def link hewTemplate      String
+hi def link hewRawRegex      String
 hi def link hewChar          Character
 hi def link hewEscape        SpecialChar
 
