@@ -35,19 +35,19 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 
 " ---- Keywords ----
 syn keyword hewControl     if else match loop for in while break continue return
-syn keyword hewControl     try catch select join yield cooperate after from await
-syn keyword hewControl     scope launch cancel
+syn keyword hewControl     defer select join yield cooperate after from await
+syn keyword hewControl     scope
 
 syn keyword hewDecl        let var const fn gen type struct enum trait impl
-syn keyword hewDecl        import pub export super where as mut
+syn keyword hewDecl        import pub super where as async extern
 
-syn keyword hewActor       actor receive init spawn async move mailbox overflow
+syn keyword hewActor       actor receive init spawn move
 
 syn keyword hewSupervisor  supervisor child restart budget strategy
 
-syn keyword hewWire        wire reserved optional deprecated default list
+syn keyword hewWire        wire reserved optional deprecated default
 
-syn keyword hewOther       dyn unsafe extern package pure
+syn keyword hewOther       dyn unsafe package pure
 
 syn keyword hewBool        true false
 syn keyword hewNone        None
@@ -59,7 +59,7 @@ syn keyword hewStrategy    permanent transient temporary
 syn keyword hewStrategy    block drop_new drop_old fail coalesce fallback
 
 " ---- Reserved keywords ----
-syn keyword hewReserved    and or race foreign isolated
+syn keyword hewReserved    try catch race foreign
 
 " ---- Types ----
 syn keyword hewType        i8 i16 i32 i64 u8 u16 u32 u64 f32 f64 isize usize
