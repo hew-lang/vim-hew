@@ -34,34 +34,45 @@ syn match   hewNumber  "\<[0-9][0-9_]*\>"
 syn region  hewAttribute start="#\[" end="\]" contains=hewString
 
 " ---- Keywords ----
+" @sync:control_flow
 syn keyword hewControl     if else match loop for in while break continue return
 syn keyword hewControl     defer select join yield cooperate after from await
 syn keyword hewControl     scope
 
+" @sync:declarations
 syn keyword hewDecl        let var const fn gen type struct enum trait impl
 syn keyword hewDecl        import pub super where as async extern
 
+" @sync:actors
 syn keyword hewActor       actor receive init spawn move
 
+" @sync:supervisor
 syn keyword hewSupervisor  supervisor child restart budget strategy
 
+" @sync:wire
 syn keyword hewWire        wire reserved optional deprecated default
 
+" @sync:machine
+syn keyword hewMachine     machine state event on when
+
+" @sync:other
 syn keyword hewOther       dyn unsafe package pure
 
+" @sync:logical
 syn keyword hewBool        true false
 syn keyword hewNone        None
 syn keyword hewSelf        self
 syn keyword hewSelfType    Self
 
+" @sync:supervisor_config
 syn keyword hewStrategy    one_for_one one_for_all rest_for_one
 syn keyword hewStrategy    permanent transient temporary
 syn keyword hewStrategy    block drop_new drop_old fail coalesce fallback
 
-" ---- Reserved keywords ----
+" @sync:reserved_unused
 syn keyword hewReserved    try catch race foreign
 
-" ---- Types ----
+" @sync:types
 syn keyword hewType        i8 i16 i32 i64 u8 u16 u32 u64 f32 f64 isize usize
 syn keyword hewType        bool char string bytes void duration
 syn keyword hewType        Result Option Vec HashMap HashSet Box Arc Rc Weak
@@ -106,6 +117,7 @@ hi def link hewDecl          Keyword
 hi def link hewActor         Keyword
 hi def link hewSupervisor    Keyword
 hi def link hewWire          Keyword
+hi def link hewMachine       Keyword
 hi def link hewOther         Keyword
 
 hi def link hewBool          Boolean
