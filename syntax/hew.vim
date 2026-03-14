@@ -44,7 +44,7 @@ syn keyword hewDecl     let var const fn gen async pub import package super
 syn keyword hewDecl     extern where type indirect enum trait impl as struct
 
 " @sync:actors
-syn keyword hewActor    actor receive init spawn move
+syn keyword hewActor    actor receive init spawn move this
 
 " @sync:supervisor
 syn keyword hewSupervisor  supervisor child restart budget strategy
