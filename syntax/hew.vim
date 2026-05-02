@@ -16,6 +16,7 @@ syn region  hewBlockComment  start="/\*" end="\*/" contains=hewBlockComment,hewT
 syn match   hewEscape  "\\[nrt\\\"0]"              contained
 syn match   hewEscape  "\\x[0-9a-fA-F]\{2\}"       contained
 syn region  hewString  start='"' skip='\\"' end='"' contains=hewEscape
+syn region  hewByteStr start='b"' skip='\\"' end='"' contains=hewEscape
 syn region  hewRawStr  start='r"'           end='"'
 syn region  hewFmtStr  start='f"' skip='\\"' end='"' contains=hewEscape,hewFmtInterp
 syn region  hewFmtInterp start='{' end='}' contained contains=TOP
@@ -37,14 +38,13 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 " @sync:control_flow
 syn keyword hewControl  if else match loop for while break continue return in
 syn keyword hewControl  yield defer select join cooperate after from await
-syn keyword hewControl  scope
 
 " @sync:declarations
 syn keyword hewDecl     let var const fn gen async pub import package super
 syn keyword hewDecl     extern where type indirect enum trait impl as struct
 
 " @sync:actors
-syn keyword hewActor    actor receive init spawn move
+syn keyword hewActor    actor receive init terminate spawn scope move
 
 " @sync:supervisor
 syn keyword hewSupervisor  supervisor child restart budget strategy
@@ -75,7 +75,8 @@ syn keyword hewReserved  try catch race foreign
 " @sync:types
 syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
 syn keyword hewType     bool char string bytes void never duration
-syn keyword hewType     Vec HashMap Option Result Ok Err Some Box Arc Rc Weak
+syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
+syn keyword hewType     Rc Weak
 syn keyword hewType     ActorRef Stream Sink Task Scope Generator
 syn keyword hewType     AsyncGenerator Range ActorStream
 syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
@@ -104,6 +105,7 @@ hi def link hewBlockComment  Comment
 hi def link hewTodo          Todo
 
 hi def link hewString        String
+hi def link hewByteStr       String
 hi def link hewRawStr        String
 hi def link hewFmtStr        String
 hi def link hewRawRegex      String

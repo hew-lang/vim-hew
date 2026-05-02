@@ -1,0 +1,20 @@
+// Smoke-test fixture — exercises the four constructs added/corrected in this PR.
+// Not valid Hew source; used only for syntax-highlighting verification.
+
+actor Counter {
+    init {
+        let count: u32 = 0
+    }
+    receive(msg: Increment) {
+        count = count + 1
+    }
+    terminate {
+        // actor is shutting down
+    }
+}
+
+scope my_scope {
+    let xs: HashSet<u32> = HashSet::new()
+}
+
+let greeting: bytes = b"hello, world"
