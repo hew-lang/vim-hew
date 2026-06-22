@@ -38,25 +38,28 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 " @sync:control_flow
 syn keyword hewControl  if else match loop for while break continue return in
 syn keyword hewControl  yield defer select join cooperate after from await
+syn keyword hewControl  scope
 
 " @sync:declarations
-syn keyword hewDecl     let var const fn gen async pub import package super
-syn keyword hewDecl     extern where type indirect enum trait impl as struct
+syn keyword hewDecl     let var const mut fn gen async pub import package
+syn keyword hewDecl     super extern where record type indirect enum trait
+syn keyword hewDecl     impl as struct
 
 " @sync:actors
-syn keyword hewActor    actor receive init fork spawn scope move
+syn keyword hewActor    actor supervisor spawn receive init scope fork move
+syn keyword hewActor    select join after from await this
 
 " @sync:supervisor
-syn keyword hewSupervisor  supervisor child restart budget strategy
+syn keyword hewSupervisor  child restart budget strategy
 
 " @sync:wire
 syn keyword hewWire     wire reserved optional deprecated default
 
 " @sync:machine
-syn keyword hewMachine  machine state event on when
+syn keyword hewMachine  machine state event on when entry exit emit
 
 " @sync:other
-syn keyword hewOther    dyn unsafe pure
+syn keyword hewOther    dyn unsafe is
 
 " @sync:logical
 syn keyword hewBool     true false
@@ -65,12 +68,12 @@ syn keyword hewSelf        this
 syn keyword hewSelfType    Self
 
 " @sync:supervisor_config
-syn keyword hewStrategy  one_for_one one_for_all rest_for_one
-syn keyword hewStrategy  permanent transient temporary
-syn keyword hewStrategy  block drop_new drop_old fail coalesce fallback
+syn keyword hewStrategy  permanent transient temporary brutal_kill one_for_one
+syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one pool
+syn keyword hewStrategy  coalesce fallback drop_new drop_old block fail
 
 " @sync:reserved_unused
-syn keyword hewReserved  try catch race foreign
+syn keyword hewReserved  try catch race foreign cooperate
 
 " @sync:types
 syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
@@ -78,11 +81,16 @@ syn keyword hewType     bool char string bytes void never duration
 syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
 syn keyword hewType     Rc Weak
 syn keyword hewType     ActorRef Stream Sink Task Scope Generator
-syn keyword hewType     AsyncGenerator Range ActorStream
+syn keyword hewType     AsyncGenerator Range
 syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
 syn keyword hewType     Default Iterator AsyncIterator IntoIterator Into From
 syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
+
+" @sync:contextual
+syn keyword hewContextual  events emits reenter initial mailbox overflow
+syn keyword hewContextual  intensity within shutdown infinity wired_to export
+syn keyword hewContextual  json yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
@@ -129,6 +137,7 @@ hi def link hewNone          Constant
 hi def link hewSelf          Identifier
 hi def link hewSelfType      Type
 hi def link hewStrategy      Constant
+hi def link hewContextual    Identifier
 
 hi def link hewType          Type
 hi def link hewFuncDef       Function
