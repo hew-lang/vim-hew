@@ -43,17 +43,17 @@ syn keyword hewControl  scope
 " @sync:declarations
 syn keyword hewDecl     let var const mut fn gen async pub import package
 syn keyword hewDecl     super extern where record type indirect enum trait
-syn keyword hewDecl     impl as struct
+syn keyword hewDecl     impl as
 
 " @sync:actors
 syn keyword hewActor    actor supervisor spawn receive init scope fork move
-syn keyword hewActor    select join after from await this
+syn keyword hewActor    select join after from await await_restart this
 
 " @sync:supervisor
 syn keyword hewSupervisor  child restart budget strategy
 
 " @sync:wire
-syn keyword hewWire     wire reserved optional deprecated default
+syn keyword hewWire     reserved optional deprecated default
 
 " @sync:machine
 syn keyword hewMachine  machine state event on when entry exit emit
@@ -80,8 +80,8 @@ syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
 syn keyword hewType     bool char string bytes void never duration
 syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
 syn keyword hewType     Rc Weak
-syn keyword hewType     ActorRef Stream Sink Task Scope Generator
-syn keyword hewType     AsyncGenerator Range
+syn keyword hewType     LocalPid RemotePid LambdaPid Stream Sink Task Scope
+syn keyword hewType     Generator AsyncGenerator Range
 syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
 syn keyword hewType     Default Iterator AsyncIterator IntoIterator Into From
 syn keyword hewType     Try Allocator
@@ -90,7 +90,7 @@ syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 " @sync:contextual
 syn keyword hewContextual  events emits reenter initial mailbox overflow
 syn keyword hewContextual  intensity within shutdown infinity wired_to export
-syn keyword hewContextual  json yaml repeated
+syn keyword hewContextual  resource linear opaque wire json yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
