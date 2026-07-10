@@ -37,8 +37,7 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 " ---- Keywords ----
 " @sync:control_flow
 syn keyword hewControl  if else match loop for while break continue return in
-syn keyword hewControl  yield defer select join cooperate after from await
-syn keyword hewControl  scope
+syn keyword hewControl  yield defer select join after from await scope
 
 " @sync:declarations
 syn keyword hewDecl     let var const mut fn gen async pub import package
