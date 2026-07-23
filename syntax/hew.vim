@@ -48,6 +48,13 @@ syn keyword hewDecl     impl as
 syn keyword hewActor    actor supervisor spawn receive init scope fork move
 syn keyword hewActor    select join after from await await_restart this
 
+" `clone <operand>` — the eager copy-on-write cost operation. A contextual
+" prefix operator, matched only in prefix position: not preceded by `.` and
+" followed by whitespace then an operand start. This skips `x.clone()`,
+" `fn clone(`, `clone(args)`, and `clone = ...`, where `clone` stays an
+" ordinary identifier.
+syn match   hewCloneOp     /\%(\.\)\@<!\<clone\>\ze\s\+[A-Za-z0-9_"'[{]/
+
 " @sync:supervisor
 syn keyword hewSupervisor  child restart budget strategy
 
@@ -144,6 +151,7 @@ hi def link hewFuncCall      Function
 
 hi def link hewReserved      Keyword
 hi def link hewOperator      Operator
+hi def link hewCloneOp       Operator
 hi def link hewLabel         Label
 
 let b:current_syntax = 'hew'
