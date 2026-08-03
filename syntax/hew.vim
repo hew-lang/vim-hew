@@ -94,21 +94,17 @@ syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  events emits reenter initial mailbox overflow
-syn keyword hewContextual  intensity within shutdown infinity wired_to export
-syn keyword hewContextual  resource linear opaque wire json yaml repeated
+syn keyword hewContextual  consume events emits reenter initial mailbox
+syn keyword hewContextual  overflow intensity within shutdown infinity
+syn keyword hewContextual  wired_to export resource linear opaque wire json
+syn keyword hewContextual  yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
 syn match   hewFuncCall    "\<[a-zA-Z_][a-zA-Z0-9_]*\ze\s*("
 
 " ---- Operators ----
-syn match   hewOperator    "->\|=>\|<-\|\.\.\(=\)\?\|::"
-syn match   hewOperator    "==\|!=\|=\~\|!\~\|<=\|>=\|<\|>"
-syn match   hewOperator    "<<=\|>>=\|&=\||=\|\^=\|+=\|-=\|\*=\|/=\|%="
-syn match   hewOperator    "<<\|>>"
-syn match   hewOperator    "[+\-*/%=!?@&|\^~]"
-
+syn match   hewOperator    "\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|::\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\|%\|?\|@\|\."
 " ---- Labels ----
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
 
