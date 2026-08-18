@@ -104,7 +104,17 @@ syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
 syn match   hewFuncCall    "\<[a-zA-Z_][a-zA-Z0-9_]*\ze\s*("
 
 " ---- Operators ----
-syn match   hewOperator    "\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|::\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\|%\|?\|@\|\."
+syn match   hewOperator    "\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\|%\|?\|@\|\."
+
+" Retired forms are errors: the compiler reports E_PATH_LEGACY_SEPARATOR for
+" `::` paths and E_LEGACY_TURBOFISH for `::<...>` scopes. Imports use `.{ }`.
+syn match   hewLegacyPathSeparator "::"
+syn match   hewLegacyTurbofish      "::\s*<"
+syn match   hewLegacyGlobImport     "\%(\<import\>\s\+\)\@<=\S\+\%(::\|\.\)\*"
+
+" Variants are contextual: `.Ok`, `.Err`, and user-defined `.Variant` forms
+" are distinct from type names.
+syn match   hewVariant     "\%([a-zA-Z0-9_]\)\@<!\.[A-Z][a-zA-Z0-9_]*\>"
 " ---- Labels ----
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
 
@@ -142,11 +152,15 @@ hi def link hewStrategy      Constant
 hi def link hewContextual    Identifier
 
 hi def link hewType          Type
+hi def link hewVariant       Constant
 hi def link hewFuncDef       Function
 hi def link hewFuncCall      Function
 
 hi def link hewReserved      Keyword
 hi def link hewOperator      Operator
+hi def link hewLegacyPathSeparator Error
+hi def link hewLegacyTurbofish      Error
+hi def link hewLegacyGlobImport     Error
 hi def link hewCloneOp       Operator
 hi def link hewLabel         Label
 
