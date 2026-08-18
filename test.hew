@@ -1,5 +1,7 @@
-// Smoke-test fixture — exercises the four constructs added/corrected in this PR.
-// Not valid Hew source; used only for syntax-highlighting verification.
+// Syntax smoke-test fixture for the current import, path, and variant surface.
+// This fixture is only used by test/syntax.vim.
+
+import collections.{HashMap, HashSet}
 
 actor Counter {
     init {
@@ -14,7 +16,15 @@ actor Counter {
 }
 
 scope my_scope {
-    let xs: HashSet<u32> = HashSet::new()
+    let xs: HashSet<u32> = HashSet.new()
+    let result: Result<u32, string> = .Ok(42)
+    let qualified = Result.Ok(42)
 }
 
 let greeting: bytes = b"hello, world"
+
+// Retired forms must remain error-highlighted.
+import collections::*
+import collections.*
+let legacy_path = HashSet::new()
+let legacy_scope = HashSet::<u32>.new()
