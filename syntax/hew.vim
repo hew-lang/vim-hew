@@ -41,7 +41,7 @@ syn keyword hewControl  yield defer select join after from await scope
 
 " @sync:declarations
 syn keyword hewDecl     let var const mut fn gen async pub import package
-syn keyword hewDecl     super extern where record type indirect enum trait
+syn keyword hewDecl     super extern where type indirect enum trait
 syn keyword hewDecl     impl as
 
 " @sync:actors
@@ -94,7 +94,7 @@ syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  consume events emits reenter initial mailbox
+syn keyword hewContextual  self events emits reenter initial mailbox
 syn keyword hewContextual  overflow intensity within shutdown infinity
 syn keyword hewContextual  wired_to export resource linear opaque wire json
 syn keyword hewContextual  yaml repeated
