@@ -40,8 +40,8 @@ syn keyword hewControl  if else match loop for while break continue return in
 syn keyword hewControl  yield defer select join after from await scope
 
 " @sync:declarations
-syn keyword hewDecl     let var const mut fn gen async pub import package
-syn keyword hewDecl     extern where type indirect enum trait impl as
+syn keyword hewDecl     let var const mut fn gen pub import package extern
+syn keyword hewDecl     where type indirect enum trait impl as
 
 " @sync:actors
 syn keyword hewActor    actor supervisor spawn receive init scope fork move
@@ -58,10 +58,10 @@ syn match   hewCloneOp     /\%(\.\)\@<!\<clone\>\ze\s\+[A-Za-z0-9_"'[{]/
 syn keyword hewSupervisor  child restart strategy
 
 " @sync:wire
-syn keyword hewWire     reserved optional deprecated default
+syn keyword hewWire     reserved optional deprecated
 
 " @sync:machine
-syn keyword hewMachine  machine state event on when entry exit emit
+syn keyword hewMachine  machine state event on when entry exit
 
 " @sync:other
 syn keyword hewOther    dyn unsafe is
@@ -74,11 +74,11 @@ syn keyword hewSelfType    Self
 
 " @sync:supervisor_config
 syn keyword hewStrategy  permanent transient temporary brutal_kill one_for_one
-syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one pool
+syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one
 syn keyword hewStrategy  coalesce fallback drop_new drop_old block fail
 
 " @sync:reserved_unused
-syn keyword hewReserved  try catch race foreign cooperate super budget
+syn keyword hewReserved  
 
 " @sync:types
 syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
@@ -95,8 +95,8 @@ syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 " @sync:contextual
 syn keyword hewContextual  clone consume events emits reenter initial mailbox
 syn keyword hewContextual  overflow intensity within shutdown infinity
-syn keyword hewContextual  wired_to export resource linear opaque wire json
-syn keyword hewContextual  yaml repeated
+syn keyword hewContextual  wired_to pool default emit export resource linear
+syn keyword hewContextual  opaque wire json yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
