@@ -93,10 +93,10 @@ syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  clone consume events emits reenter initial mailbox
-syn keyword hewContextual  overflow intensity within shutdown infinity
-syn keyword hewContextual  wired_to export resource linear opaque wire json
-syn keyword hewContextual  yaml repeated
+syn keyword hewContextual  clone handle fails error consume events emits
+syn keyword hewContextual  reenter initial mailbox overflow intensity within
+syn keyword hewContextual  shutdown infinity wired_to export resource linear
+syn keyword hewContextual  opaque wire json yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
@@ -118,6 +118,11 @@ syn match   hewVariant     "\%([a-zA-Z0-9_]\)\@<!\.[A-Z][a-zA-Z0-9_]*\>"
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
 
 " ---- Highlighting ----
+" Callable qualifiers and capture prefixes are contextual, not reserved names.
+syn region  hewCallableCapabilities matchgroup=hewDecl start=/\%(\<fn\s*\)\@<=\[/ end=/\]/ contains=hewCallableCapability
+syn keyword hewCallableCapability var once clone contained
+syn match   hewCapture /\<capture\>\ze\s*(\s*var\>/
+
 hi def link hewLineComment   Comment
 hi def link hewDocComment    SpecialComment
 hi def link hewBlockComment  Comment
@@ -149,6 +154,8 @@ hi def link hewSelf          Identifier
 hi def link hewSelfType      Type
 hi def link hewStrategy      Constant
 hi def link hewContextual    Identifier
+hi def link hewCallableCapability Keyword
+hi def link hewCapture Keyword
 
 hi def link hewType          Type
 hi def link hewVariant       Constant
