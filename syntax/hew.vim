@@ -36,37 +36,64 @@ syn match   hewNumber  "\<[0-9][0-9_]*\>"
 syn region  hewAttribute start="#\[" end="\]" contains=hewString
 
 " ---- Keywords ----
-syn keyword hewControl     if else match loop for in while break continue return
-syn keyword hewControl     try catch select join yield cooperate after from await
-syn keyword hewControl     scope launch cancel and or race
+" @sync:control_flow
+syn keyword hewControl  if else match loop while break continue return in
+syn keyword hewControl  yield defer select race after from await await_restart
+syn keyword hewControl  scope
 
-syn keyword hewDecl        let var const fn gen type struct enum trait impl
-syn keyword hewDecl        import pub export super where as mut
+" @sync:declarations
+syn keyword hewDecl     let var const mut fn gen pub import package extern
+syn keyword hewDecl     where type indirect enum trait impl as
 
-syn keyword hewActor       actor receive init spawn async move mailbox overflow
+" @sync:actors
+syn keyword hewActor    actor spawn receive init fork move
 
-syn keyword hewSupervisor  supervisor child restart budget strategy
+" @sync:supervisor
+syn keyword hewSupervisor  supervisor child restart strategy
 
-syn keyword hewWire        wire reserved optional deprecated default list
+" @sync:wire
+syn keyword hewWire     reserved optional deprecated default
 
-syn keyword hewOther       dyn unsafe extern package foreign isolated
+" @sync:machine
+syn keyword hewMachine  machine state event on when entry exit emit
 
-syn keyword hewBool        true false
+" @sync:other
+syn keyword hewOther    dyn unsafe is
+
+" `for` remains a control keyword except when followed by retired `await`.
+syn match   hewControl     "\<for\>\(\s\+await\)\@!"
+
+" @sync:logical
+syn keyword hewBool     true false
 syn keyword hewNone        None
 syn keyword hewSelf        self
 syn keyword hewSelfType    Self
 
-syn keyword hewStrategy    one_for_one one_for_all rest_for_one
-syn keyword hewStrategy    permanent transient temporary
-syn keyword hewStrategy    block drop_new drop_old fail coalesce fallback
+" @sync:supervisor_config
+syn keyword hewStrategy  permanent transient temporary brutal_kill one_for_one
+syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one pool
+syn keyword hewStrategy  coalesce fallback drop_new drop_old block fail
+
+" @sync:reserved_unused
+syn keyword hewReserved  try catch foreign cooperate super budget
+
+" @sync:contextual
+syn keyword hewContextual  clone suspends handle fails error events emits
+syn keyword hewContextual  reenter initial mailbox overflow intensity within
+syn keyword hewContextual  shutdown infinity wired_to export resource linear
+syn keyword hewContextual  opaque wire json yaml repeated
 
 " ---- Types ----
-syn keyword hewType        i8 i16 i32 i64 u8 u16 u32 u64 f32 f64 isize usize
-syn keyword hewType        bool char string bytes void
-syn keyword hewType        Result Option Vec HashMap HashSet Box Arc Rc Weak
-syn keyword hewType        Actor ActorRef Task Scope Generator AsyncGenerator ActorStream
-syn keyword hewType        Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
-syn keyword hewType        Default Iterator AsyncIterator IntoIterator Into From Try Allocator
+" @sync:types
+syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
+syn keyword hewType     bool char string bytes duration instant
+syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
+syn keyword hewType     Rc Weak
+syn keyword hewType     LocalPid RemotePid LambdaPid Stream Sink Task Scope
+syn keyword hewType     Generator Range
+syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
+syn keyword hewType     Default Iterator AsyncIterator IntoIterator Into From
+syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " ---- Functions ----
@@ -74,11 +101,18 @@ syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
 syn match   hewFuncCall    "\<[a-zA-Z_][a-zA-Z0-9_]*\ze\s*("
 
 " ---- Operators ----
-syn match   hewOperator    "->\|=>\|<-\|\.\.\(=\)\?\|::"
+syn match   hewOperator    "->\|=>\|\.\.\(=\)\?\|::"
 syn match   hewOperator    "==\|!=\|=\~\|!\~\|<=\|>=\|<\|>"
 syn match   hewOperator    "<<=\|>>=\|&=\||=\|\^=\|+=\|-=\|\*=\|/=\|%="
 syn match   hewOperator    "<<\|>>"
 syn match   hewOperator    "[+\-*/%=!?@&|\^~]"
+
+" ---- Retired surface ----
+" Keep removed spellings visibly distinct while the compiler reports them.
+syn match   hewRetired     "\<async\s\+gen\s\+fn\>"
+syn match   hewRetired     "\<for\s\+await\>"
+syn match   hewRetired     "|\s*after\>"
+syn match   hewDecl        "\<consume\s\+self\>"
 
 " ---- Labels ----
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
@@ -106,13 +140,17 @@ hi def link hewDecl          Keyword
 hi def link hewActor         Keyword
 hi def link hewSupervisor    Keyword
 hi def link hewWire          Keyword
+hi def link hewMachine       Keyword
 hi def link hewOther         Keyword
+hi def link hewReserved      Keyword
+hi def link hewContextual    Identifier
 
 hi def link hewBool          Boolean
 hi def link hewNone          Constant
 hi def link hewSelf          Identifier
 hi def link hewSelfType      Type
 hi def link hewStrategy      Constant
+hi def link hewRetired       Error
 
 hi def link hewType          Type
 hi def link hewFuncDef       Function
