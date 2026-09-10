@@ -36,16 +36,16 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 
 " ---- Keywords ----
 " @sync:control_flow
-syn keyword hewControl  if else match loop for while break continue return in
-syn keyword hewControl  yield defer select join race after from await scope
+syn keyword hewControl  if else match loop while break continue return in
+syn keyword hewControl  yield defer select race after from await await_restart
+syn keyword hewControl  scope
 
 " @sync:declarations
-syn keyword hewDecl     let var const mut fn gen async pub import package
-syn keyword hewDecl     extern where type indirect enum trait impl as
+syn keyword hewDecl     let var const mut fn gen pub import package extern
+syn keyword hewDecl     where type indirect enum trait impl as
 
 " @sync:actors
-syn keyword hewActor    actor supervisor spawn receive init scope fork move
-syn keyword hewActor    select join race after from await await_restart
+syn keyword hewActor    actor spawn receive init fork move
 
 " `clone <operand>` — the eager copy-on-write cost operation. A contextual
 " prefix operator, matched only in prefix position: not preceded by `.` and
@@ -55,13 +55,13 @@ syn keyword hewActor    select join race after from await await_restart
 syn match   hewCloneOp     /\%(\.\)\@<!\<clone\>\ze\s\+[A-Za-z0-9_"'[{]/
 
 " @sync:supervisor
-syn keyword hewSupervisor  child restart strategy
+syn keyword hewSupervisor  supervisor child restart strategy
 
 " @sync:wire
-syn keyword hewWire     reserved optional deprecated default
+syn keyword hewWire     reserved optional deprecated
 
 " @sync:machine
-syn keyword hewMachine  machine state event on when entry exit emit
+syn keyword hewMachine  machine state event on when entry exit
 
 " @sync:other
 syn keyword hewOther    dyn unsafe is
@@ -69,15 +69,13 @@ syn keyword hewOther    dyn unsafe is
 " @sync:logical
 syn keyword hewBool     true false
 syn keyword hewNone        None
+syn keyword hewSelf        self
 syn keyword hewSelfType    Self
 
 " @sync:supervisor_config
 syn keyword hewStrategy  permanent transient temporary brutal_kill one_for_one
-syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one pool
+syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one
 syn keyword hewStrategy  coalesce fallback drop_new drop_old block fail
-
-" @sync:reserved_unused
-syn keyword hewReserved  try catch foreign cooperate super budget
 
 " @sync:types
 syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
@@ -85,18 +83,17 @@ syn keyword hewType     bool char string bytes duration instant
 syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
 syn keyword hewType     Rc Weak
 syn keyword hewType     LocalPid RemotePid LambdaPid Stream Sink Task Scope
-syn keyword hewType     Generator AsyncGenerator Range
+syn keyword hewType     Generator Range
 syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
 syn keyword hewType     Default Iterator AsyncIterator IntoIterator Into From
 syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  clone consume capture once suspends handle fails error
-syn keyword hewContextual  count events emits reenter initial mailbox
-syn keyword hewContextual  overflow intensity within shutdown infinity
-syn keyword hewContextual  wired_to export resource linear opaque wire json
-syn keyword hewContextual  yaml repeated
+syn keyword hewContextual  clone suspends handle fails error events emits
+syn keyword hewContextual  reenter initial mailbox overflow intensity within
+syn keyword hewContextual  shutdown infinity wired_to pool default emit export
+syn keyword hewContextual  resource linear opaque wire json yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
@@ -154,7 +151,6 @@ hi def link hewVariant       Constant
 hi def link hewFuncDef       Function
 hi def link hewFuncCall      Function
 
-hi def link hewReserved      Keyword
 hi def link hewOperator      Operator
 hi def link hewLegacyPathSeparator Error
 hi def link hewLegacyTurbofish      Error
