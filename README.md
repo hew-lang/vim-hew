@@ -64,7 +64,7 @@ vim -Nu NONE -i NONE -n -es -S test/syntax.vim
 ```
 
 The fixture covers dotted paths, `.{ }` imports, and contextual `.Variant`
-forms. Retired syntax is highlighted as an error; the compiler names the
+forms, consuming receivers, generators and plain stream iteration. Retired syntax is highlighted as an error; the compiler names the
 legacy path and turbofish diagnostics `E_PATH_LEGACY_SEPARATOR` and
 `E_LEGACY_TURBOFISH`; removed glob imports use `E_IMPORT_GLOB_REMOVED`.
 
