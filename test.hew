@@ -28,3 +28,13 @@ import collections::*
 import collections.*
 let legacy_path = HashSet::new()
 let legacy_scope = HashSet::<u32>.new()
+
+// Contextual receivers and current generator/stream spellings.
+fn close(consume self) {}
+fn consume(value: i64) -> i64 { value }
+let async = 1;
+gen fn values() -> i64 { yield 1; }
+for item in stream { println(item); }
+async gen fn retired() -> i64 { yield 1; }
+for await item in stream { println(item); }
+let expired = work() | after 1s;

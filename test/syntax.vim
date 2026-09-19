@@ -28,6 +28,15 @@ call s:assert_group('Result\zs\.Ok', 'hewOperator')
 call s:assert_group('HashSet\zs::new', 'hewLegacyPathSeparator')
 call s:assert_group('HashSet\zs::<u32>', 'hewLegacyTurbofish')
 
+call s:assert_group('close(\zsconsume', 'hewConsume')
+call s:assert_group('fn \zsconsume', 'hewFuncCall')
+call s:assert_group('let \zsasync', '')
+call s:assert_group('^\zsgen fn values', 'hewDecl')
+call s:assert_group('^\zsfor item', 'hewControl')
+call s:assert_group('^\zsasync gen', 'hewRetired')
+call s:assert_group('^\zsfor await', 'hewRetired')
+call s:assert_group('work() \zs| after', 'hewRetired')
+
 if len(v:errors)
   for error in v:errors
     echomsg error

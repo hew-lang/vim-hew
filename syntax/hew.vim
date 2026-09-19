@@ -39,6 +39,7 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 syn keyword hewControl  if else match loop while break continue return in
 syn keyword hewControl  yield defer select race after from await await_restart
 syn keyword hewControl  scope
+syn match   hewControl    "\<for\>\%(\s\+await\>\)\@!"
 
 " @sync:declarations
 syn keyword hewDecl     let var const mut fn gen pub import package extern
@@ -82,8 +83,7 @@ syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
 syn keyword hewType     bool char string bytes duration instant
 syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
 syn keyword hewType     Rc Weak
-syn keyword hewType     LocalPid RemotePid LambdaPid Stream Sink Task Scope
-syn keyword hewType     Generator Range
+syn keyword hewType     RemotePid Stream Sink Task Scope Generator Range
 syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
 syn keyword hewType     Default Iterator AsyncIterator IntoIterator Into From
 syn keyword hewType     Try Allocator
@@ -111,6 +111,12 @@ syn match   hewLegacyGlobImport     "\%(\<import\>\s\+\)\@<=\S\+\%(::\|\.\)\*"
 " Variants are contextual: `.Ok`, `.Err`, and user-defined `.Variant` forms
 " are distinct from type names.
 syn match   hewVariant     "\%([a-zA-Z0-9_]\)\@<!\.[A-Z][a-zA-Z0-9_]*\>"
+" Consume is contextual to a method receiver.
+syn match   hewConsume     "\<consume\>\ze\s\+self\>"
+syn match   hewRetired     "\<for\s\+await\>"
+syn match   hewRetired     "\<async\s\+gen\s\+fn\>"
+syn match   hewRetired     "|\s*after\>"
+
 " ---- Labels ----
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
 
@@ -156,6 +162,8 @@ hi def link hewLegacyPathSeparator Error
 hi def link hewLegacyTurbofish      Error
 hi def link hewLegacyGlobImport     Error
 hi def link hewCloneOp       Operator
+hi def link hewConsume       Keyword
+hi def link hewRetired       Error
 hi def link hewLabel         Label
 
 let b:current_syntax = 'hew'
