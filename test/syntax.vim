@@ -36,6 +36,12 @@ call s:assert_group('^\zsfor item', 'hewControl')
 call s:assert_group('^\zsasync gen', 'hewRetired')
 call s:assert_group('^\zsfor await', 'hewRetired')
 call s:assert_group('work() \zs| after', 'hewRetired')
+call s:assert_group('fn\[\zsvar', 'hewCallableCapability')
+call s:assert_group('var, \zssuspends', 'hewCallableCapability')
+call s:assert_group('^let bump = \zscapture', 'hewCapture')
+call s:assert_group('found \zs??', 'hewOperator')
+call s:assert_group('^\zsawait_restart', 'hewRetired')
+call s:assert_group('^let \zsclone_copy', '')
 
 if len(v:errors)
   for error in v:errors

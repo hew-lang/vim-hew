@@ -4,21 +4,16 @@
 import collections.{HashMap, HashSet}
 
 actor Counter {
-    init {
-        let count: u32 = 0
-    }
-    receive(msg: Increment) {
-        count = count + 1
-    }
-    terminate {
-        // actor is shutting down
+    var count: u32 = 0;
+    receive fn increment() {
+        count = count + 1;
     }
 }
 
-scope my_scope {
-    let xs: HashSet<u32> = HashSet.new()
-    let result: Result<u32, string> = .Ok(42)
-    let qualified = Result.Ok(42)
+fn main() {
+    let xs: HashSet<u32> = HashSet.new();
+    let result: Result<u32, string> = .Ok(42);
+    let qualified = Result.Ok(42);
 }
 
 let greeting: bytes = b"hello, world"
@@ -38,3 +33,10 @@ for item in stream { println(item); }
 async gen fn retired() -> i64 { yield 1; }
 for await item in stream { println(item); }
 let expired = work() | after 1s;
+
+// Callable guarantees, private captures and optional defaults.
+fn step(next: fn[var, suspends]() -> i64) -> i64 { next() }
+let bump = capture(var total) || { total = total + 1; total };
+let fallback = found ?? 7;
+let clone_copy = value.clone();
+await_restart sup.child;

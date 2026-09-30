@@ -37,7 +37,7 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 " ---- Keywords ----
 " @sync:control_flow
 syn keyword hewControl  if else match loop while break continue return in
-syn keyword hewControl  yield defer select race after from await await_restart
+syn keyword hewControl  yield defer select race after from await
 syn keyword hewControl  scope
 syn match   hewControl    "\<for\>\%(\s\+await\>\)\@!"
 
@@ -74,8 +74,8 @@ syn keyword hewSelf        self
 syn keyword hewSelfType    Self
 
 " @sync:supervisor_config
-syn keyword hewStrategy  permanent transient temporary brutal_kill one_for_one
-syn keyword hewStrategy  one_for_all rest_for_one simple_one_for_one
+syn keyword hewStrategy  permanent transient temporary one_for_one one_for_all
+syn keyword hewStrategy  rest_for_one simple_one_for_one
 syn keyword hewStrategy  coalesce fallback drop_new drop_old block fail
 
 " @sync:types
@@ -92,15 +92,15 @@ syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 " @sync:contextual
 syn keyword hewContextual  clone suspends handle fails error events emits
 syn keyword hewContextual  reenter initial mailbox overflow intensity within
-syn keyword hewContextual  shutdown infinity wired_to pool default emit export
-syn keyword hewContextual  resource linear opaque wire json yaml repeated
+syn keyword hewContextual  stop wired_to pool default emit export resource
+syn keyword hewContextual  linear opaque wire json yaml repeated
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
 syn match   hewFuncCall    "\<[a-zA-Z_][a-zA-Z0-9_]*\ze\s*("
 
 " ---- Operators ----
-syn match   hewOperator    "\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\|%\|?\|@\|\."
+syn match   hewOperator    "??\|\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\|%\|?\|@\|\."
 
 " Retired forms are errors: the compiler reports E_PATH_LEGACY_SEPARATOR for
 " `::` paths and E_LEGACY_TURBOFISH for `::<...>` scopes. Imports use `.{ }`.
@@ -116,6 +116,13 @@ syn match   hewConsume     "\<consume\>\ze\s\+self\>"
 syn match   hewRetired     "\<for\s\+await\>"
 syn match   hewRetired     "\<async\s\+gen\s\+fn\>"
 syn match   hewRetired     "|\s*after\>"
+syn match   hewRetired     "\<await_restart\>"
+syn match   hewRetired     "\<brutal_kill\>"
+
+" Callable qualifiers and capture prefixes are contextual, not reserved names.
+syn region  hewCallableCapabilities matchgroup=hewDecl start=/\%(\<fn\s*\)\@<=\[/ end=/\]/ contains=hewCallableCapability
+syn keyword hewCallableCapability var once clone suspends contained
+syn match   hewCapture     /\<capture\>\ze\s*(\s*var\>/
 
 " ---- Labels ----
 syn match   hewLabel       "'[a-zA-Z_][a-zA-Z0-9_]*"
@@ -163,6 +170,8 @@ hi def link hewLegacyTurbofish      Error
 hi def link hewLegacyGlobImport     Error
 hi def link hewCloneOp       Operator
 hi def link hewConsume       Keyword
+hi def link hewCallableCapability Keyword
+hi def link hewCapture       Keyword
 hi def link hewRetired       Error
 hi def link hewLabel         Label
 
