@@ -40,3 +40,20 @@ let bump = capture(var total) || { total = total + 1; total };
 let fallback = found ?? 7;
 let clone_copy = value.clone();
 await_restart sup.child;
+
+// Failure clauses, tagged wire variants and the offload attribute.
+fn read(path: string) -> i64 fails string {
+    return error "bad";
+    return error .Invalid;
+    return error;
+    return error + 1;
+}
+extern "C" {
+    #[offload]
+    fn sqlite_exec_text(path: string, sql: string) -> string;
+}
+#[wire]
+enum Command {
+    Start @0;
+    Push(i64) @1;
+}

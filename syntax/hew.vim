@@ -111,6 +111,16 @@ syn match   hewLegacyGlobImport     "\%(\<import\>\s\+\)\@<=\S\+\%(::\|\.\)\*"
 " Variants are contextual: `.Ok`, `.Err`, and user-defined `.Variant` forms
 " are distinct from type names.
 syn match   hewVariant     "\%([a-zA-Z0-9_]\)\@<!\.[A-Z][a-zA-Z0-9_]*\>"
+" `-> T fails E` and `return error <expr>` are contextual: `fails` and `error`
+" stay ordinary identifiers elsewhere, and after `return` an operator, call,
+" index, `?`, `as`, `else`, `handle` or terminator keeps `error` a binding.
+" The match starts at the whitespace before the word because a keyword in the
+" generated contextual list would otherwise win at the word's own column.
+syn match   hewFailureClause "\%([A-Za-z0-9_>)\]]\)\@<=\s\+fails\>\ze\s\+[A-Za-z_(\[]" contains=hewFailureWord
+syn match   hewFailureReturn "\s\+return\s\+error\>\ze\s\+\%(\%(as\|else\|handle\)\>\)\@![A-Za-z0-9_\"'{.]" contains=hewFailureWord,hewReturnWord
+syn match   hewFailureWord   "\<\%(fails\|error\)\>" contained
+syn keyword hewReturnWord    return contained
+syn match   hewWireTag     "@\d\+\>"
 " Consume is contextual to a method receiver.
 syn match   hewConsume     "\<consume\>\ze\s\+self\>"
 syn match   hewRetired     "\<for\s\+await\>"
@@ -150,6 +160,9 @@ hi def link hewDecl          Keyword
 hi def link hewActor         Keyword
 hi def link hewSupervisor    Keyword
 hi def link hewWire          Keyword
+hi def link hewFailureWord   Keyword
+hi def link hewReturnWord    hewControl
+hi def link hewWireTag       Number
 hi def link hewMachine       Keyword
 hi def link hewOther         Keyword
 

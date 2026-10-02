@@ -42,6 +42,13 @@ call s:assert_group('^let bump = \zscapture', 'hewCapture')
 call s:assert_group('found \zs??', 'hewOperator')
 call s:assert_group('^\zsawait_restart', 'hewRetired')
 call s:assert_group('^let \zsclone_copy', '')
+call s:assert_group(') -> i64 \zsfails', 'hewFailureWord')
+call s:assert_group('^    return \zserror "bad"', 'hewFailureWord')
+call s:assert_group('^    return \zserror \.Invalid', 'hewFailureWord')
+call s:assert_group('^    return \zserror;', 'hewContextual')
+call s:assert_group('^    return \zserror + 1', 'hewContextual')
+call s:assert_group('Push(i64) \zs@1', 'hewWireTag')
+call s:assert_group('^    \zs#\[offload', 'hewAttribute')
 
 if len(v:errors)
   for error in v:errors
