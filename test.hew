@@ -57,3 +57,6 @@ enum Command {
     Start @0;
     Push(i64) @1;
 }
+
+fn deposit(account: Account) fails ActorError {
+}
