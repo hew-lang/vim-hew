@@ -60,3 +60,5 @@ enum Command {
 
 fn deposit(account: Account) fails ActorError {
 }
+
+let equal: fn<T: Eq>(T, T) -> bool = |<T: Eq> left: T, right: T| -> bool { left == right };
