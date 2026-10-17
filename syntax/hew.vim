@@ -37,13 +37,12 @@ syn region  hewAttribute start="#\[" end="\]" contains=hewString
 " ---- Keywords ----
 " @sync:control_flow
 syn keyword hewControl  if else match loop while break continue return in
-syn keyword hewControl  yield defer select race after from await
-syn keyword hewControl  scope
+syn keyword hewControl  yield defer select race after from await scope
 syn match   hewControl    "\<for\>\%(\s\+await\>\)\@!"
 
 " @sync:declarations
-syn keyword hewDecl     let var const mut fn gen pub import package extern
-syn keyword hewDecl     where type indirect enum trait impl as
+syn keyword hewDecl     let var const mut fn macro gen pub import package
+syn keyword hewDecl     extern where type indirect enum trait impl as
 
 " @sync:actors
 syn keyword hewActor    actor spawn receive init fork move

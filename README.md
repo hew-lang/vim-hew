@@ -2,6 +2,12 @@
 
 Vim/Neovim syntax highlighting and editor support for the [Hew](https://hew.sh) programming language.
 
+Use the [Hew v0.6.1 SDK](https://github.com/hew-lang/hew/releases/tag/v0.6.1)
+for the current released compiler and formatter. This plugin highlights
+generic closures such as `|<T: Eq> left: T, right: T| -> bool { left == right }`
+and callable types such as `fn<T: Eq>(T, T) -> bool`; highlighting does not
+replace compiler diagnostics.
+
 ## Installation
 
 ### [lazy.nvim](https://github.com/folke/lazy.nvim) (Neovim)

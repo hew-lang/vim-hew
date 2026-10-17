@@ -50,6 +50,9 @@ call s:assert_group('^    return \zserror;', 'hewContextual')
 call s:assert_group('^    return \zserror + 1', 'hewContextual')
 call s:assert_group('Push(i64) \zs@1', 'hewWireTag')
 call s:assert_group('^    \zs#\[offload', 'hewAttribute')
+call s:assert_group('^let equal: \zsfn', 'hewDecl')
+call s:assert_group('= |<\zsT', 'hewType')
+call s:assert_group('= |<T: \zsEq', 'hewType')
 
 if len(v:errors)
   for error in v:errors
