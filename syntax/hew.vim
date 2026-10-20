@@ -82,7 +82,7 @@ syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
 syn keyword hewType     bool char string bytes duration instant
 syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
 syn keyword hewType     Rc Weak
-syn keyword hewType     RemotePid Stream Sink Task Scope Generator Range
+syn keyword hewType     Stream Sink Task Scope Generator Range
 syn keyword hewType     Send Frozen Copy Drop Clone Eq Ord Hash Display Debug
 syn keyword hewType     Default Iterator AsyncIterator IntoIterator Into From
 syn keyword hewType     Try Allocator
