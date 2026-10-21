@@ -89,9 +89,10 @@ syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  clone default emit emits error events export fails
-syn keyword hewContextual  handle initial intensity json linear mailbox opaque
-syn keyword hewContextual  overflow pool reenter repeated resource stop
+syn keyword hewContextual  always clone completion default emit emits error
+syn keyword hewContextual  events export fails final handle history initial
+syn keyword hewContextual  intensity json linear mailbox opaque overflow
+syn keyword hewContextual  parallel pool reenter region repeated resource stop
 syn keyword hewContextual  suspends wire wired_to within yaml
 
 " ---- Functions ----
