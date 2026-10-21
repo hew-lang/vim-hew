@@ -69,3 +69,23 @@ let elapsed: duration;
 let label = "timestamp";
 let ratio = 12 / 3;
 /* timestamp stays a block comment */
+
+machine Delivery {
+    events { Send; }
+    state Ready;
+    parallel state Working {
+        region payment {
+            state Waiting { count: i64; }
+            initial Waiting { count: 0 };
+            final state Paid;
+        }
+        region stock { initial state Empty; final state Reserved; }
+    }
+    final state Finished;
+    on Send: Ready => Working history reenter;
+    on completion: Working => Finished;
+    always: Ready => Finished when false;
+    default { state }
+}
+// parallel region history final completion always
+let chart_label = "parallel region history final completion always";
