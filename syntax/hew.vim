@@ -75,11 +75,11 @@ syn keyword hewSelfType    Self
 " @sync:supervisor_config
 syn keyword hewStrategy  permanent transient temporary one_for_one one_for_all
 syn keyword hewStrategy  rest_for_one simple_one_for_one
-syn keyword hewStrategy  coalesce fallback drop_new drop_old block fail
+syn keyword hewStrategy  block coalesce drop_new drop_old fail fallback
 
 " @sync:types
 syn keyword hewType     i8 i16 i32 i64 u8 u16 u32 u64 isize usize f32 f64
-syn keyword hewType     bool char string bytes duration instant
+syn keyword hewType     bool char string bytes duration instant timestamp
 syn keyword hewType     HashMap HashSet Vec Option Result Ok Err Some Box Arc
 syn keyword hewType     Rc Weak
 syn keyword hewType     Stream Sink Task Scope Generator Range
@@ -89,17 +89,17 @@ syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  clone suspends handle fails error events emits
-syn keyword hewContextual  reenter initial mailbox overflow intensity within
-syn keyword hewContextual  stop wired_to pool default emit export resource
-syn keyword hewContextual  linear opaque wire json yaml repeated
+syn keyword hewContextual  clone default emit emits error events export fails
+syn keyword hewContextual  handle initial intensity json linear mailbox opaque
+syn keyword hewContextual  overflow pool reenter repeated resource stop
+syn keyword hewContextual  suspends wire wired_to within yaml
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
 syn match   hewFuncCall    "\<[a-zA-Z_][a-zA-Z0-9_]*\ze\s*("
 
 " ---- Operators ----
-syn match   hewOperator    "??\|\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\|%\|?\|@\|\."
+syn match   hewOperator    "??\|\.\.=\|<<=\|>>=\|->\|=>\|\.\.\|==\|!=\|<=\|>=\|&&\|||\|<<\|>>\|+=\|-=\|\*=\|/=\|%=\|&=\||=\|\^=\|&+\|&-\|&\*\|<\|>\|!\|&\||\|\^\|\~\|=\|+\|-\|\*\|/\%([/*]\)\@!\|%\|?\|@\|\."
 
 " Retired forms are errors: the compiler reports E_PATH_LEGACY_SEPARATOR for
 " `::` paths and E_LEGACY_TURBOFISH for `::<...>` scopes. Imports use `.{ }`.
