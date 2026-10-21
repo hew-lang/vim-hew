@@ -18,6 +18,12 @@ function! s:assert_group(pattern, expected) abort
   call assert_equal(a:expected, actual, a:pattern)
 endfunction
 
+call s:assert_group('12 \zs/', 'hewOperator')
+call s:assert_group('/\* \zstimestamp', 'hewBlockComment')
+call s:assert_group('observed_at: \zstimestamp', 'hewType')
+call s:assert_group('elapsed: \zsduration', 'hewType')
+call s:assert_group('// \zstimestamp', 'hewLineComment')
+call s:assert_group('label = "\zstimestamp', 'hewString')
 call s:assert_group('collections\zs\.', 'hewOperator')
 call s:assert_group('collections\.{\zsHashMap', 'hewType')
 call s:assert_group('HashSet\.\zsnew', 'hewFuncCall')

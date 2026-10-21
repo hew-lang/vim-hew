@@ -62,3 +62,10 @@ fn deposit(account: Account) fails ActorError {
 }
 
 let equal: fn<T: Eq>(T, T) -> bool = |<T: Eq> left: T, right: T| -> bool { left == right };
+
+let observed_at: timestamp;
+let elapsed: duration;
+// timestamp stays a comment
+let label = "timestamp";
+let ratio = 12 / 3;
+/* timestamp stays a block comment */
