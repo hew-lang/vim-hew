@@ -68,6 +68,8 @@ call s:assert_group('on \zscompletion:', 'hewContextual')
 call s:assert_group('^    \zsalways:', 'hewContextual')
 call s:assert_group('// \zsparallel region', 'hewLineComment')
 call s:assert_group('chart_label = "\zsparallel region', 'hewString')
+call s:assert_group('^    \zsbackoff: restart', 'hewContextual')
+call s:assert_group('permanent \zsbackoff:', 'hewContextual')
 
 if len(v:errors)
   for error in v:errors

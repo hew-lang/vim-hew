@@ -89,3 +89,8 @@ machine Delivery {
 }
 // parallel region history final completion always
 let chart_label = "parallel region history final completion always";
+
+supervisor Gateway {
+    backoff: restart.exponential(initial: 100ms, maximum: 5s);
+    child cache: Cache restart: permanent backoff: restart.immediate();
+}
