@@ -89,3 +89,7 @@ machine Delivery {
 }
 // parallel region history final completion always
 let chart_label = "parallel region history final completion always";
+
+supervisor Restarting {
+    backoff: restart.exponential(initial: 100ms);
+}

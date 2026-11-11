@@ -66,6 +66,7 @@ call s:assert_group('^            \zsfinal state Paid', 'hewContextual')
 call s:assert_group('Working \zshistory reenter', 'hewContextual')
 call s:assert_group('on \zscompletion:', 'hewContextual')
 call s:assert_group('^    \zsalways:', 'hewContextual')
+call s:assert_group('^    \zsbackoff:', 'hewContextual')
 call s:assert_group('// \zsparallel region', 'hewLineComment')
 call s:assert_group('chart_label = "\zsparallel region', 'hewString')
 
