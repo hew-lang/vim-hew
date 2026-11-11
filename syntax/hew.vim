@@ -89,11 +89,11 @@ syn keyword hewType     Try Allocator
 syn match   hewType        "\<[A-Z][a-zA-Z0-9_]*\>"
 
 " @sync:contextual
-syn keyword hewContextual  always clone completion default emit emits error
-syn keyword hewContextual  events export fails final handle history initial
-syn keyword hewContextual  intensity json linear mailbox opaque overflow
-syn keyword hewContextual  parallel pool reenter region repeated resource stop
-syn keyword hewContextual  suspends wire wired_to within yaml
+syn keyword hewContextual  always backoff clone completion default emit emits
+syn keyword hewContextual  error events export fails final handle history
+syn keyword hewContextual  initial intensity json linear mailbox opaque
+syn keyword hewContextual  overflow parallel pool reenter region repeated
+syn keyword hewContextual  resource stop suspends wire wired_to within yaml
 
 " ---- Functions ----
 syn match   hewFuncDef     "\<fn\s\+\zs[a-zA-Z_][a-zA-Z0-9_]*"
