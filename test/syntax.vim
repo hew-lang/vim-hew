@@ -71,6 +71,10 @@ call s:assert_group('chart_label = "\zsparallel region', 'hewString')
 call s:assert_group('^    \zsbackoff: restart', 'hewContextual')
 call s:assert_group('permanent \zsbackoff:', 'hewContextual')
 
+call s:assert_group('(?P<\zsword', 'hewRawRegex')
+call s:assert_group('\zsif word !=', 'hewControl')
+call s:assert_group('\zsif ready', 'hewControl')
+
 if len(v:errors)
   for error in v:errors
     echomsg error

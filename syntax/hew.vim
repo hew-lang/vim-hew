@@ -20,7 +20,7 @@ syn region  hewByteStr start='b"' skip='\\"' end='"' contains=hewEscape
 syn region  hewRawStr  start='r"'           end='"'
 syn region  hewFmtStr  start='f"' skip='\\"' end='"' contains=hewEscape,hewFmtInterp
 syn region  hewFmtInterp start='{' end='}' contained contains=TOP
-syn region  hewRawRegex start='re"' end='"'
+syn region  hewRawRegex start='re"' skip='\\.' end='"'
 syn match   hewChar    "'\(\\[nrt\\'0]\|\\x[0-9a-fA-F]\{2\}\|[^']\)'"
 
 " ---- Numbers ----
