@@ -100,3 +100,14 @@ match input {
     re"\\\\" if ready => false,
     _ => false,
 }
+
+type ModuleSlot {
+    private internal_value: i64;
+    private: i64;
+}
+
+fn private(private: ModuleSlot) -> i64 {
+    let marker = "private internal_value: i64;";
+    // private internal_value: i64;
+    private.private
+}

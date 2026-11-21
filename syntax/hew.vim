@@ -121,6 +121,8 @@ syn match   hewFailureReturn "\s\+return\s\+error\>\ze\s\+\%(\%(as\|else\|handle
 syn match   hewFailureWord   "\<\%(fails\|error\)\>" contained
 syn keyword hewReturnWord    return contained
 syn match   hewWireTag     "@\d\+\>"
+" Private only introduces a field before a name and colon.
+syn match   hewPrivateField /\<private\>\ze\s\+[A-Za-z_][A-Za-z0-9_]*\s*:/
 " Consume is contextual to a method receiver.
 syn match   hewConsume     "\<consume\>\ze\s\+self\>"
 syn match   hewRetired     "\<for\s\+await\>"
@@ -185,6 +187,7 @@ hi def link hewCloneOp       Operator
 hi def link hewConsume       Keyword
 hi def link hewCallableCapability Keyword
 hi def link hewCapture       Keyword
+hi def link hewPrivateField  Keyword
 hi def link hewRetired       Error
 hi def link hewLabel         Label
 
