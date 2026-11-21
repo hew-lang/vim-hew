@@ -75,6 +75,13 @@ call s:assert_group('(?P<\zsword', 'hewRawRegex')
 call s:assert_group('\zsif word !=', 'hewControl')
 call s:assert_group('\zsif ready', 'hewControl')
 
+call s:assert_group('^    \zsprivate internal_value:', 'hewPrivateField')
+call s:assert_group('^    \zsprivate: i64', '')
+call s:assert_group('fn \zsprivate(', 'hewFuncCall')
+call s:assert_group('private\.\zsprivate', '')
+call s:assert_group('marker = "\zsprivate internal_value:', 'hewString')
+call s:assert_group('// \zsprivate internal_value:', 'hewLineComment')
+
 if len(v:errors)
   for error in v:errors
     echomsg error
